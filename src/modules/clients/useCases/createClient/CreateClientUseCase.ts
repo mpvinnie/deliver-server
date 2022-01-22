@@ -6,7 +6,6 @@ import { ICreateClientDTO } from '../../dtos/ICreateClientDTO'
 import { IClientsRepository } from '../../repositories/interfaces/IClientsRepository'
 import { IHashProvider } from '../../providers/hashProvider/interfaces/IHashProvider'
 
-
 @injectable()
 export class CreateClientUseCase {
   constructor(

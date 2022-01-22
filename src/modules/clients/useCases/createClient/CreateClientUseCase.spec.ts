@@ -1,6 +1,7 @@
 import { ClientsRepositoryInMemory } from '../../repositories/in-memory/ClientsRepositoryInMemory'
 import { HashProviderInMemory } from '../../providers/hashProvider/in-memory/HashProviderInMemory'
 import { CreateClientUseCase } from './CreateClientUseCase'
+import { AppError } from '../../../../shared/errors/AppError'
 
 let clientsRepository: ClientsRepositoryInMemory
 let hashProvider: HashProviderInMemory
@@ -32,5 +33,17 @@ describe('CreateClient', () => {
     expect(client).toHaveProperty('id')
     expect(client.password.split(' ')[0]).toBe('hashed')
     expect(client.password.split(' ')[1]).toBe('password')
+  })
+
+  it('should not be able to create a client with an existent username', async () => {
+    await createClient.execute({
+      username: 'johndoe',
+      password: 'password'
+    })
+
+    await expect(createClient.execute({
+      username: 'johndoe',
+      password: 'password'
+    })).rejects.toBeInstanceOf(AppError)
   })
 })
