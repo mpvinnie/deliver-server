@@ -29,4 +29,11 @@ export class ClientsRepository implements IClientsRepository {
     return client
   }
 
+  async findById(id: string): Promise<Client | null> {
+    const client = await prisma.client.findUnique({
+      where: { id }
+    })
+
+    return client
+  }
 }

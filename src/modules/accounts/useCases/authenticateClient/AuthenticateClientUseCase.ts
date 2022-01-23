@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe'
 import { AppError } from '../../../../shared/errors/AppError'
 import { IHashProvider } from '../../../clients/providers/hashProvider/interfaces/IHashProvider'
 import { sign } from 'jsonwebtoken'
-import authConfig from '../../../../config/auth'
+import { jwt } from '../../../../config/auth'
 
 import { IClientsRepository } from '../../../clients/repositories/interfaces/IClientsRepository'
 import { IAuthenticateClientDTO } from '../../dtos/IAuthenticateClientDTO'
@@ -30,9 +30,9 @@ export class AuthenticateClientUseCase {
       throw new AppError('Username or password invalid!', 401)
     }
 
-    const { secret, expiresIn } = authConfig.jwt
+    const { client_secret, expiresIn } = jwt
 
-    const token = sign({ username }, secret, {
+    const token = sign({ username }, client_secret, {
       subject: client.id,
       expiresIn: expiresIn
     })

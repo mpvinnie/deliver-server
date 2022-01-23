@@ -22,4 +22,7 @@ export class ClientsRepositoryInMemory implements IClientsRepository {
     return this.clients.find(client => client.username === username)
   }
 
+  async findById(id: string): Promise<Client | undefined> {
+    return this.clients.find(client => client.id === id)
+  }
 }
