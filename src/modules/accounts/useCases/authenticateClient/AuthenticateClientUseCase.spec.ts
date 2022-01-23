@@ -37,10 +37,10 @@ describe('AuthenticateClient', () => {
     })).rejects.toBeInstanceOf(AppError)
   })
 
-  it('should not be able to authenticate a non-existent client', async () => {
+  it('should not be able to authenticate a client with a wrong password', async () => {
     await clientsRepository.create({
       username: 'johndoe',
-      password: 'hashed password'
+      password: await hashProvider.hashPassword('password')
     })
 
     await expect(authenticateClient.execute({
