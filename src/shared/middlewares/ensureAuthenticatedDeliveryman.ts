@@ -7,7 +7,7 @@ type IPayload = {
   sub: string
 }
 
-export async function ensureAuthenticatedClient(request: Request, response: Response, next: NextFunction) {
+export async function ensureAuthenticatedDeliveryman(request: Request, response: Response, next: NextFunction) {
   const authHeader = request.headers.authorization
 
   if (!authHeader) {
@@ -16,15 +16,15 @@ export async function ensureAuthenticatedClient(request: Request, response: Resp
 
   const [, token] = authHeader.split(' ')
 
-  const { client_secret } = jwt
+  const { deliveryman_secret } = jwt
 
   try {
-    const { sub: id_client } = verify(token, client_secret) as IPayload
+    const { sub } = verify(token, deliveryman_secret) as IPayload
 
-    request.id_client = id_client
+    request.id_deliveryman = sub
 
     return next()
   } catch (err) {
-    throw new AppError('Invalid token', 401)
+    throw new AppError('Token invalid', 401)
   }
 }

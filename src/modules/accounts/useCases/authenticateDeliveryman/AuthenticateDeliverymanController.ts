@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
-import { AuthenticateDeliverymanUseCase } from './AuthenticateDeliveryUseCase'
+import { AuthenticateDeliverymanUseCase } from './AuthenticateDeliverymanUseCase'
 
 export class AuthenticateDeliverymanController {
   async handle(request: Request, response: Response) {

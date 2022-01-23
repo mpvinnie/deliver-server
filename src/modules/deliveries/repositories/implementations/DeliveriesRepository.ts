@@ -16,4 +16,13 @@ export class DeliveriesRepository implements IDeliveriesRepository {
     return delivery
   }
 
+  async findAvailables(): Promise<Delivery[]> {
+    const availableDeliveries = await prisma.delivery.findMany({
+      where: {
+        end_at: null
+      }
+    })
+
+    return availableDeliveries
+  }
 }

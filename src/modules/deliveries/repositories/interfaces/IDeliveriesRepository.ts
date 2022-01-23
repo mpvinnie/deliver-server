@@ -3,4 +3,5 @@ import { ICreateDeliveryDTO } from '../../dtos/ICreateDeliveryDTO'
 
 export interface IDeliveriesRepository {
   create(data: ICreateDeliveryDTO): Promise<Delivery>
+  findAvailables(): Promise<Delivery[]>
 }

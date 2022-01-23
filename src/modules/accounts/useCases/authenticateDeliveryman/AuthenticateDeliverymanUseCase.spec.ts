@@ -1,7 +1,7 @@
 import { AppError } from '../../../../shared/errors/AppError'
 import { HashProviderInMemory } from '../../../clients/providers/hashProvider/in-memory/HashProviderInMemory'
 import { DeliverersRepositoryInMemory } from '../../../deliverers/repositories/in-memory/DeliverersRepositoryInMemory'
-import { AuthenticateDeliverymanUseCase } from './AuthenticateDeliveryUseCase'
+import { AuthenticateDeliverymanUseCase } from './AuthenticateDeliverymanUseCase'
 
 let deliverersRepository: DeliverersRepositoryInMemory
 let hashProvider: HashProviderInMemory
