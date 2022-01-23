@@ -22,6 +22,6 @@ export class DeliveriesRepositoryInMemory implements IDeliveriesRepository {
   }
 
   async findAvailables(): Promise<Delivery[]> {
-    return this.deliveries.filter(delivery => !delivery.end_at)
+    return this.deliveries.filter(delivery => !delivery.end_at && !delivery.id_deliveryman)
   }
 }
