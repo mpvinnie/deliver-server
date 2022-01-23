@@ -21,4 +21,8 @@ export class DeliverersRepositoryInMemory implements IDeliverersRepository {
   async findByUsername(username: string): Promise<Deliveryman | undefined> {
     return this.deliverers.find(delivery => delivery.username === username)
   }
+
+  async findById(id: string): Promise<Deliveryman | undefined> {
+    return this.deliverers.find(delivery => delivery.id === id)
+  }
 }

@@ -26,4 +26,25 @@ export class DeliveriesRepository implements IDeliveriesRepository {
 
     return availableDeliveries
   }
+
+  async findById(id: string): Promise<Delivery | null> {
+    const delivery = await prisma.delivery.findFirst({
+      where: {
+        id
+      }
+    })
+
+    return delivery
+  }
+
+  async update(delivery: Delivery): Promise<Delivery> {
+    const updatedDelivery = await prisma.delivery.update({
+      where: {
+        id: delivery.id
+      },
+      data: delivery
+    })
+
+    return updatedDelivery
+  }
 }

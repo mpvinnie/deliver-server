@@ -24,4 +24,16 @@ export class DeliveriesRepositoryInMemory implements IDeliveriesRepository {
   async findAvailables(): Promise<Delivery[]> {
     return this.deliveries.filter(delivery => !delivery.end_at && !delivery.id_deliveryman)
   }
+
+  async findById(id: string): Promise<Delivery | undefined> {
+    return this.deliveries.find(delivery => delivery.id === id)
+  }
+
+  async update(delivery: Delivery): Promise<Delivery> {
+    const findIndex = this.deliveries.findIndex(currentDelivery => currentDelivery.id === delivery.id)
+
+    this.deliveries[findIndex] = delivery
+
+    return this.deliveries[findIndex]
+  }
 }

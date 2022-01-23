@@ -28,4 +28,14 @@ export class DeliverersRepository implements IDeliverersRepository {
 
     return deliveryman
   }
+
+  async findById(id: string): Promise<Deliveryman | null> {
+    const deliveryman = await prisma.deliveryman.findFirst({
+      where: {
+        id
+      }
+    })
+
+    return deliveryman
+  }
 }
