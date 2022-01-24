@@ -36,4 +36,8 @@ export class DeliveriesRepositoryInMemory implements IDeliveriesRepository {
 
     return this.deliveries[findIndex]
   }
+
+  async findAcceptedByDeliverymanId(accepted_delivery_id: string, deliveryman_id: string): Promise<Delivery | null | undefined> {
+    return this.deliveries.find(delivery => delivery.id === accepted_delivery_id && delivery.id_deliveryman === deliveryman_id)
+  }
 }

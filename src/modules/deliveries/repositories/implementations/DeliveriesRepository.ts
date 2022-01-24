@@ -47,4 +47,15 @@ export class DeliveriesRepository implements IDeliveriesRepository {
 
     return updatedDelivery
   }
+
+  async findAcceptedByDeliverymanId(accepted_delivery_id: string, deliveryman_id: string): Promise<Delivery | null | undefined> {
+    const delivery = await prisma.delivery.findFirst({
+      where: {
+        id: accepted_delivery_id,
+        id_deliveryman: deliveryman_id
+      }
+    })
+
+    return delivery
+  }
 }
