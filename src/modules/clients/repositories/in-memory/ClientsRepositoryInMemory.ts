@@ -1,4 +1,4 @@
-import { Client } from '@prisma/client'
+import { Client, Delivery } from '@prisma/client'
 import { ICreateClientDTO } from '../../dtos/ICreateClientDTO'
 import { IClientsRepository } from '../interfaces/IClientsRepository'
 import { v4 as uuid } from 'uuid'
@@ -24,5 +24,22 @@ export class ClientsRepositoryInMemory implements IClientsRepository {
 
   async findById(id: string): Promise<Client | undefined> {
     return this.clients.find(client => client.id === id)
+  }
+
+  async findClientDeliveries(id: string): Promise<Client & { deliveries: Delivery[] } | undefined> {
+    const client = this.clients.find(client => client.id === id)
+
+    if (!client) {
+      return client
+    }
+
+    const clientDeliveries = {
+      id: client.id,
+      username: client.username,
+      password: client.password,
+      deliveries: []
+    }
+
+    return clientDeliveries
   }
 }

@@ -1,4 +1,4 @@
-import { Client } from '@prisma/client'
+import { Client, Delivery } from '@prisma/client'
 import { ICreateClientDTO } from '../../dtos/ICreateClientDTO'
 import { IClientsRepository } from '../interfaces/IClientsRepository'
 
@@ -35,5 +35,18 @@ export class ClientsRepository implements IClientsRepository {
     })
 
     return client
+  }
+
+  async findClientDeliveries(id: string): Promise<Client & { deliveries: Delivery[] } | null> {
+    const clientDeliveries = await prisma.client.findUnique({
+      where: {
+        id
+      },
+      include: {
+        deliveries: true
+      }
+    })
+
+    return clientDeliveries
   }
 }
