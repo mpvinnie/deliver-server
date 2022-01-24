@@ -1,4 +1,4 @@
-import { Deliveryman } from '@prisma/client'
+import { Delivery, Deliveryman } from '@prisma/client'
 import { ICreateDeliverymanDTO } from '../../dtos/ICreateDelivermanDTO'
 import { IDeliverersRepository } from '../interfaces/IDeliverersRepository'
 import { v4 as uuid } from 'uuid'
@@ -24,5 +24,20 @@ export class DeliverersRepositoryInMemory implements IDeliverersRepository {
 
   async findById(id: string): Promise<Deliveryman | undefined> {
     return this.deliverers.find(delivery => delivery.id === id)
+  }
+
+  async findDeliverymanDeliveries(deliveryman_id: string): Promise<(Deliveryman & { deliveries: Delivery[] }) | undefined> {
+    const deliveryman = this.deliverers.find(delivery => delivery.id === deliveryman_id)
+
+    if (!deliveryman) {
+      return
+    }
+
+    const deliverymanDeliveries = {
+      ...deliveryman,
+      deliveries: []
+    }
+
+    return deliverymanDeliveries
   }
 }
